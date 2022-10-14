@@ -60,36 +60,28 @@
     </table>
   </div>
 </div>
-<div class="paging">
-  <ul class="pagination justify-content-center" style="margin-top: 2rem;">
+<div class="row mt-5">
+  {% if is_paginated %}
+  <ul class="pagination">
     {% if page_obj.has_previous %}
-    <li class="page-item">
-      <a class="page-link" href="?page={{ page_obj.previous_page_number }}&s={{ request.GET.s }}">이전으로</a>
-    </li>
+    <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
     {% else %}
-    <li class="page-item disabled"><span class="page-link">이전으로</span></li>
+    <li class="disabled"><span>&laquo;</span></li>
     {% endif %}
     {% for i in paginator.page_range %}
     {% if page_obj.number == i %}
-    <li class="page-item active" aria-current="page">
-      <span class="page-link">{{ i }}</span>
-    </li>
+    <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
     {% else %}
-    <span class="page-item">
-      <span class="page-link" href="?page={{ i }}">{{ i }}</span>
-    </span>
+    <li><a href="?page={{ i }}">{{ i }}</a></li>
     {% endif %}
     {% endfor %}
     {% if page_obj.has_next %}
-    <li class="page-item">
-      <a class="page-link" href="?page={{ page_obj.next_page_number }}&s={{ request.GET.s }}">다음으로</a>
-    </li>
+    <li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
     {% else %}
-    <li class="page-item disabled">
-      <span class="page-link">다음으로</span>
-    </li>
+    <li class="disabled"><span>&raquo;</span></li>
     {% endif %}
   </ul>
+  {% endif %}
 </div>
 
 {% endblock %}
